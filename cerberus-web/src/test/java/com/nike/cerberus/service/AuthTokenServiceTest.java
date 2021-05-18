@@ -202,7 +202,8 @@ public class AuthTokenServiceTest {
     when(tokenHasher.hashToken(tokenId)).thenReturn(fakeHash);
     when(authTokenDao.getAuthTokenFromHash(fakeHash))
         .thenReturn(
-            Optional.of(new AuthTokenRecord().setExpiresTs(OffsetDateTime.now().minusHours(1))));
+            Optional.of(
+                AuthTokenRecord.builder().expiresTs(OffsetDateTime.now().minusHours(1)).build()));
 
     Optional<CerberusAuthToken> tokenOptional = authTokenService.getCerberusAuthToken(tokenId);
     assertTrue("optional should be empty", !tokenOptional.isPresent());
@@ -215,7 +216,8 @@ public class AuthTokenServiceTest {
     when(jwtService.isJwt(tokenId)).thenReturn(true);
     when(jwtService.parseAndValidateToken(tokenId))
         .thenReturn(
-            Optional.of(new CerberusJwtClaims().setExpiresTs(OffsetDateTime.now().minusHours(1))));
+            Optional.of(
+                CerberusJwtClaims.builder().expiresTs(OffsetDateTime.now().minusHours(1)).build()));
 
     Optional<CerberusAuthToken> tokenOptional = authTokenService.getCerberusAuthToken(tokenId);
     assertTrue("optional should be empty", !tokenOptional.isPresent());
@@ -235,17 +237,17 @@ public class AuthTokenServiceTest {
     when(authTokenDao.getAuthTokenFromHash(fakeHash))
         .thenReturn(
             Optional.of(
-                new AuthTokenRecord()
-                    .setId(id)
-                    .setTokenHash(fakeHash)
-                    .setCreatedTs(now)
-                    .setExpiresTs(now.plusHours(1))
-                    .setPrincipal(principal)
-                    .setPrincipalType(PrincipalType.USER.getName())
-                    .setIsAdmin(false)
-                    .setGroups(groups)
-                    .setRefreshCount(0)));
-
+                AuthTokenRecord.builder()
+                    .id(id)
+                    .tokenHash(fakeHash)
+                    .createdTs(now)
+                    .expiresTs(now.plusHours(1))
+                    .principal(principal)
+                    .principalType(PrincipalType.USER.getName())
+                    .isAdmin(false)
+                    .groups(groups)
+                    .refreshCount(0)
+                    .build()));
     Optional<CerberusAuthToken> tokenOptional = authTokenService.getCerberusAuthToken(tokenId);
 
     CerberusAuthToken token =
@@ -273,15 +275,16 @@ public class AuthTokenServiceTest {
     when(jwtService.parseAndValidateToken(tokenId))
         .thenReturn(
             Optional.of(
-                new CerberusJwtClaims()
-                    .setId(id)
-                    .setCreatedTs(now)
-                    .setExpiresTs(now.plusHours(1))
-                    .setPrincipal(principal)
-                    .setPrincipalType(PrincipalType.USER.getName())
-                    .setIsAdmin(false)
-                    .setGroups(groups)
-                    .setRefreshCount(0)));
+                CerberusJwtClaims.builder()
+                    .id(id)
+                    .createdTs(now)
+                    .expiresTs(now.plusHours(1))
+                    .principal(principal)
+                    .principalType(PrincipalType.USER.getName())
+                    .isAdmin(false)
+                    .groups(groups)
+                    .refreshCount(0)
+                    .build()));
 
     Optional<CerberusAuthToken> tokenOptional = authTokenService.getCerberusAuthToken(tokenId);
 

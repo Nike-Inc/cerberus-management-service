@@ -147,15 +147,16 @@ public class AuthTokenService {
     String token;
 
     authTokenInfo =
-        new CerberusJwtClaims()
-            .setId(id)
-            .setCreatedTs(now)
-            .setExpiresTs(now.plusMinutes(ttlInMinutes))
-            .setPrincipal(principal)
-            .setPrincipalType(principalType.getName())
-            .setIsAdmin(isAdmin)
-            .setGroups(groups)
-            .setRefreshCount(refreshCount);
+        CerberusJwtClaims.builder()
+            .id(id)
+            .createdTs(now)
+            .expiresTs(now.plusMinutes(ttlInMinutes))
+            .principal(principal)
+            .principalType(principalType.getName())
+            .isAdmin(isAdmin)
+            .groups(groups)
+            .refreshCount(refreshCount)
+            .build();
     token = jwtService.generateJwtToken((CerberusJwtClaims) authTokenInfo);
     return getCerberusAuthTokenFromRecord(token, authTokenInfo);
   }
@@ -171,19 +172,22 @@ public class AuthTokenService {
       OffsetDateTime now) {
 
     String token = authTokenGenerator.generateSecureToken();
-    AuthTokenRecord authTokenRecord =
-        new AuthTokenRecord()
-            .setId(id)
-            .setTokenHash(tokenHasher.hashToken(token))
-            .setCreatedTs(now)
-            .setExpiresTs(now.plusMinutes(ttlInMinutes))
-            .setPrincipal(principal)
-            .setPrincipalType(principalType.getName())
-            .setIsAdmin(isAdmin)
-            .setGroups(groups)
-            .setRefreshCount(refreshCount);
-    authTokenDao.createAuthToken(authTokenRecord);
-    return getCerberusAuthTokenFromRecord(token, authTokenRecord);
+    AuthTokenRecord tokenRecord =
+        AuthTokenRecord.builder()
+            .id(id)
+            .tokenHash(tokenHasher.hashToken(token))
+            .createdTs(now)
+            .expiresTs(now.plusMinutes(ttlInMinutes))
+            .principal(principal)
+            .principalType(principalType.getName())
+            .isAdmin(isAdmin)
+            .groups(groups)
+            .refreshCount(refreshCount)
+            .build();
+
+    authTokenDao.createAuthToken(tokenRecord);
+
+    return getCerberusAuthTokenFromRecord(token, tokenRecord);
   }
 
   private CerberusAuthToken getCerberusAuthTokenFromRecord(

@@ -18,7 +18,15 @@ package com.nike.cerberus.record;
 
 import com.nike.cerberus.domain.AuthTokenInfo;
 import java.time.OffsetDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthTokenRecord implements AuthTokenInfo {
 
   private String id;
@@ -38,85 +46,4 @@ public class AuthTokenRecord implements AuthTokenInfo {
   private String groups;
 
   private Integer refreshCount;
-
-  public String getId() {
-    return id;
-  }
-
-  public AuthTokenRecord setId(String id) {
-    this.id = id;
-    return this;
-  }
-
-  public String getTokenHash() {
-    return tokenHash;
-  }
-
-  public AuthTokenRecord setTokenHash(String tokenHash) {
-    this.tokenHash = tokenHash;
-    return this;
-  }
-
-  public OffsetDateTime getCreatedTs() {
-    return createdTs;
-  }
-
-  public AuthTokenRecord setCreatedTs(OffsetDateTime createdTs) {
-    this.createdTs = createdTs;
-    return this;
-  }
-
-  public OffsetDateTime getExpiresTs() {
-    return expiresTs;
-  }
-
-  public AuthTokenRecord setExpiresTs(OffsetDateTime expiresTs) {
-    this.expiresTs = expiresTs;
-    return this;
-  }
-
-  public String getPrincipal() {
-    return principal;
-  }
-
-  public AuthTokenRecord setPrincipal(String principal) {
-    this.principal = principal;
-    return this;
-  }
-
-  public String getPrincipalType() {
-    return principalType;
-  }
-
-  public AuthTokenRecord setPrincipalType(String principalType) {
-    this.principalType = principalType;
-    return this;
-  }
-
-  public Boolean getIsAdmin() {
-    return isAdmin;
-  }
-
-  public AuthTokenRecord setIsAdmin(Boolean admin) {
-    isAdmin = admin;
-    return this;
-  }
-
-  public String getGroups() {
-    return groups;
-  }
-
-  public AuthTokenRecord setGroups(String groups) {
-    this.groups = groups;
-    return this;
-  }
-
-  public Integer getRefreshCount() {
-    return refreshCount;
-  }
-
-  public AuthTokenRecord setRefreshCount(Integer refreshCount) {
-    this.refreshCount = refreshCount;
-    return this;
-  }
 }

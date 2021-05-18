@@ -67,16 +67,17 @@ public class SecureDataVersionServiceTest {
     String fullPath = String.format("%s/%s", sdbCategory, pathToSecureData);
 
     SecureDataVersionRecord record =
-        new SecureDataVersionRecord()
-            .setId(versionId)
-            .setEncryptedBlob("encrypted blob".getBytes(Charset.forName("UTF-8")))
-            .setActionPrincipal(actionPrincipal)
-            .setSdboxId(sdbId)
-            .setActionTs(actionTs)
-            .setPath(pathToSecureData)
-            .setVersionCreatedBy(versionCreatedBy)
-            .setVersionCreatedTs(versionCreatedTs)
-            .setAction(action);
+        SecureDataVersionRecord.builder()
+            .id(versionId)
+            .encryptedBlob("encrypted blob".getBytes(Charset.forName("UTF-8")))
+            .actionPrincipal(actionPrincipal)
+            .sdboxId(sdbId)
+            .actionTs(actionTs)
+            .path(pathToSecureData)
+            .versionCreatedBy(versionCreatedBy)
+            .versionCreatedTs(versionCreatedTs)
+            .action(action)
+            .build();
 
     List<SecureDataVersionRecord> versions = Lists.newArrayList(record);
 
@@ -160,19 +161,20 @@ public class SecureDataVersionServiceTest {
 
   private SecureDataVersionRecord getSecureDataVersionRecord() {
     SecureDataVersionRecord secureDataVersionRecord =
-        new SecureDataVersionRecord()
-            .setVersionCreatedBy("user")
-            .setVersionCreatedTs(OffsetDateTime.MAX)
-            .setAction("action")
-            .setId("id")
-            .setActionTs(OffsetDateTime.MAX)
-            .setActionPrincipal("principal")
-            .setEncryptedBlob("blob".getBytes(StandardCharsets.UTF_8))
-            .setLastRotatedTs(OffsetDateTime.MAX)
-            .setSdboxId("sdBoxId")
-            .setSizeInBytes(10)
-            .setType(SecureDataType.OBJECT)
-            .setPath("path");
+        SecureDataVersionRecord.builder()
+            .versionCreatedBy("user")
+            .versionCreatedTs(OffsetDateTime.MAX)
+            .action("action")
+            .id("id")
+            .actionTs(OffsetDateTime.MAX)
+            .actionPrincipal("principal")
+            .encryptedBlob("blob".getBytes(StandardCharsets.UTF_8))
+            .lastRotatedTs(OffsetDateTime.MAX)
+            .sdboxId("sdBoxId")
+            .sizeInBytes(10)
+            .type(SecureDataType.OBJECT)
+            .path("path")
+            .build();
     return secureDataVersionRecord;
   }
 
@@ -407,19 +409,20 @@ public class SecureDataVersionServiceTest {
 
   private SecureDataRecord getSecureDataRecord() {
     SecureDataRecord secureDataRecord =
-        new SecureDataRecord()
-            .setCreatedBy("user")
-            .setCreatedTs(OffsetDateTime.MAX)
-            .setId(0)
-            .setPath("path")
-            .setEncryptedBlob("blob".getBytes(StandardCharsets.UTF_8))
-            .setLastRotatedTs(OffsetDateTime.MAX)
-            .setLastUpdatedBy("user")
-            .setLastUpdatedTs(OffsetDateTime.MAX)
-            .setSdboxId("sdbBoxId")
-            .setSizeInBytes(10)
-            .setTopLevelKVCount(9)
-            .setType(SecureDataType.OBJECT);
+        SecureDataRecord.builder()
+            .createdBy("user")
+            .createdTs(OffsetDateTime.MAX)
+            .id(0)
+            .path("path")
+            .encryptedBlob("blob".getBytes(StandardCharsets.UTF_8))
+            .lastRotatedTs(OffsetDateTime.MAX)
+            .lastUpdatedBy("user")
+            .lastUpdatedTs(OffsetDateTime.MAX)
+            .sdboxId("sdbBoxId")
+            .sizeInBytes(10)
+            .topLevelKVCount(9)
+            .type(SecureDataType.OBJECT)
+            .build();
     return secureDataRecord;
   }
 }
