@@ -18,7 +18,11 @@ package com.nike.cerberus.domain;
 
 import java.time.OffsetDateTime;
 import java.util.Arrays;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 public class SecureFileVersion implements SecureFile {
 
   private String id;
@@ -33,103 +37,46 @@ public class SecureFileVersion implements SecureFile {
   private String actionPrincipal;
   private OffsetDateTime actionTs;
 
-  public String getId() {
-    return id;
-  }
-
-  public SecureFileVersion setId(String id) {
+  public SecureFileVersion(
+      String id,
+      String sdboxId,
+      String path,
+      byte[] data,
+      String name,
+      int sizeInBytes,
+      String action,
+      String versionCreatedBy,
+      OffsetDateTime versionCreatedTs,
+      String actionPrincipal,
+      OffsetDateTime actionTs) {
     this.id = id;
-    return this;
-  }
-
-  public String getSdboxId() {
-    return sdboxId;
-  }
-
-  public SecureFileVersion setSdboxId(String sdboxId) {
     this.sdboxId = sdboxId;
-    return this;
-  }
-
-  public String getPath() {
-    return path;
-  }
-
-  public SecureFileVersion setPath(String path) {
     this.path = path;
-    return this;
+    this.data = Arrays.copyOf(data, data.length);
+    this.name = name;
+    this.sizeInBytes = sizeInBytes;
+    this.action = action;
+    this.versionCreatedBy = versionCreatedBy;
+    this.versionCreatedTs = versionCreatedTs;
+    this.actionPrincipal = actionPrincipal;
+    this.actionTs = actionTs;
   }
 
   public byte[] getData() {
     return Arrays.copyOf(data, data.length);
   }
 
-  public SecureFileVersion setData(byte[] data) {
+  public void setData(byte[] data) {
     this.data = Arrays.copyOf(data, data.length);
-    return this;
   }
 
-  public String getName() {
-    return name;
-  }
+  public static class SecureFileVersionBuilder {
+    private byte[] data;
 
-  public SecureFileVersion setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public int getSizeInBytes() {
-    return sizeInBytes;
-  }
-
-  public SecureFileVersion setSizeInBytes(int sizeInBytes) {
-    this.sizeInBytes = sizeInBytes;
-    return this;
-  }
-
-  public String getAction() {
-    return action;
-  }
-
-  public SecureFileVersion setAction(String action) {
-    this.action = action;
-    return this;
-  }
-
-  public String getVersionCreatedBy() {
-    return versionCreatedBy;
-  }
-
-  public SecureFileVersion setVersionCreatedBy(String versionCreatedBy) {
-    this.versionCreatedBy = versionCreatedBy;
-    return this;
-  }
-
-  public OffsetDateTime getVersionCreatedTs() {
-    return versionCreatedTs;
-  }
-
-  public SecureFileVersion setVersionCreatedTs(OffsetDateTime versionCreatedTs) {
-    this.versionCreatedTs = versionCreatedTs;
-    return this;
-  }
-
-  public String getActionPrincipal() {
-    return actionPrincipal;
-  }
-
-  public SecureFileVersion setActionPrincipal(String actionPrincipal) {
-    this.actionPrincipal = actionPrincipal;
-    return this;
-  }
-
-  public OffsetDateTime getActionTs() {
-    return actionTs;
-  }
-
-  public SecureFileVersion setActionTs(OffsetDateTime actionTs) {
-    this.actionTs = actionTs;
-    return this;
+    public SecureFileVersionBuilder data(byte[] data) {
+      this.data = Arrays.copyOf(data, data.length);
+      return this;
+    }
   }
 
   public enum SecretsAction {

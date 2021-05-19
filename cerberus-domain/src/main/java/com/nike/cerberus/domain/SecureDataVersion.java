@@ -17,7 +17,15 @@
 package com.nike.cerberus.domain;
 
 import java.time.OffsetDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SecureDataVersion {
 
   private String id;
@@ -29,87 +37,6 @@ public class SecureDataVersion {
   private OffsetDateTime versionCreatedTs;
   private String actionPrincipal;
   private OffsetDateTime actionTs;
-
-  public String getId() {
-    return id;
-  }
-
-  public SecureDataVersion setId(String id) {
-    this.id = id;
-    return this;
-  }
-
-  public String getSdboxId() {
-    return sdboxId;
-  }
-
-  public SecureDataVersion setSdboxId(String sdboxId) {
-    this.sdboxId = sdboxId;
-    return this;
-  }
-
-  public String getPath() {
-    return path;
-  }
-
-  public SecureDataVersion setPath(String path) {
-    this.path = path;
-    return this;
-  }
-
-  public String getData() {
-    return data;
-  }
-
-  public SecureDataVersion setData(String data) {
-    this.data = data;
-    return this;
-  }
-
-  public String getAction() {
-    return action;
-  }
-
-  public SecureDataVersion setAction(String action) {
-    this.action = action;
-    return this;
-  }
-
-  public String getVersionCreatedBy() {
-    return versionCreatedBy;
-  }
-
-  public SecureDataVersion setVersionCreatedBy(String versionCreatedBy) {
-    this.versionCreatedBy = versionCreatedBy;
-    return this;
-  }
-
-  public OffsetDateTime getVersionCreatedTs() {
-    return versionCreatedTs;
-  }
-
-  public SecureDataVersion setVersionCreatedTs(OffsetDateTime versionCreatedTs) {
-    this.versionCreatedTs = versionCreatedTs;
-    return this;
-  }
-
-  public String getActionPrincipal() {
-    return actionPrincipal;
-  }
-
-  public SecureDataVersion setActionPrincipal(String actionPrincipal) {
-    this.actionPrincipal = actionPrincipal;
-    return this;
-  }
-
-  public OffsetDateTime getActionTs() {
-    return actionTs;
-  }
-
-  public SecureDataVersion setActionTs(OffsetDateTime actionTs) {
-    this.actionTs = actionTs;
-    return this;
-  }
 
   public enum SecretsAction {
     CREATE,
